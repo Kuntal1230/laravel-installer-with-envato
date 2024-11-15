@@ -31,5 +31,7 @@
                 "Jackiedo\\DotenvEditor\\DotenvEditorServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
