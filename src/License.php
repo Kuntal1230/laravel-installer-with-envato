@@ -5,8 +5,7 @@ namespace Gupta\LaravelInstallerWithEnvato;
 use Exception;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
+
 
 class License
 {
@@ -65,28 +64,28 @@ class License
     private function saveLicense(array $data): void
     {
         // Read the contents of agreement.md
-        $agreementPath = base_path('vendor/Gupta/laravel-installer-with-envato/agreement.md');
+        $agreementPath = base_path('vendor/gupta/laravel-installer-with-envato/AGREEMENT.md');
         $agreementContent = file_get_contents($agreementPath);
 
         // Write the contents to the license file
-        $licensePath = base_path('vendor/Gupta/laravel-installer-with-envato/license');
+        $licensePath = base_path('vendor/gupta/laravel-installer-with-envato/license');
         file_put_contents($licensePath, $agreementContent, LOCK_EX);
     }
 
     private function removeLicense(): void
     {
-        if (file_exists(base_path('vendor/Gupta/laravel-installer-with-envato/license'))) {
-            if (!is_writable(base_path('vendor/Gupta/laravel-installer-with-envato/license'))) {
-                @chmod(base_path('vendor/Gupta/laravel-installer-with-envato/license'), 0777);
+        if (file_exists(base_path('vendor/gupta/laravel-installer-with-envato/license'))) {
+            if (!is_writable(base_path('vendor/gupta/laravel-installer-with-envato/license'))) {
+                @chmod(base_path('vendor/gupta/laravel-installer-with-envato/license'), 0777);
             }
 
-            unlink(base_path('vendor/Gupta/laravel-installer-with-envato/license'));
+            unlink(base_path('vendor/gupta/laravel-installer-with-envato/license'));
         }
     }
 
     private function getLicenseFile(): bool|string|null
     {
-        $path = base_path('vendor/Gupta/laravel-installer-with-envato/license');
+        $path = base_path('vendor/gupta/laravel-installer-with-envato/license');
 
         if (file_exists($path)) {
             return file_get_contents($path);

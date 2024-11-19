@@ -5,7 +5,7 @@ return [
 
     'company' => [
         'name' => 'PixelsBD Solution',
-        'url' => 'https://Gupta.com',
+        'url' => 'https://pixelsbdsolution.com',
         'support_email' => 'envato@Gupta.com',
         'support_phone' => '+880',
     ],
@@ -24,7 +24,7 @@ return [
         'script' => 'PixelsStore -  Multi Vendor eCommerce PWA/CMS',
         'platform' => 'envato',
         'product_id' => '',
-        'api_url' => 'https://Gupta.com',
+        'api_url' => 'https://pixelsbdsolution.com',
         'api_key' => '',
         'api_language' => 'english',
         'current_version' => env('APP_VERSION', 'v1.0.0'),
