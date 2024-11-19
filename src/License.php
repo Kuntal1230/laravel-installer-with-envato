@@ -78,7 +78,6 @@ class License
             if (!is_writable(base_path('vendor/gupta/laravel-installer-with-envato/license'))) {
                 @chmod(base_path('vendor/gupta/laravel-installer-with-envato/license'), 0777);
             }
-
             unlink(base_path('vendor/gupta/laravel-installer-with-envato/license'));
         }
     }
