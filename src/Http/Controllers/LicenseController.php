@@ -13,21 +13,15 @@ class LicenseController extends Controller
     public function index()
     {
         if (! Cache::get('installer.agreement')) {
-            flash('Please agree to the terms and conditions.', 'error');
-
-            return redirect()->route('installer.agreement.index');
+            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions.');
         }
 
         if (! Cache::get('installer.requirements')) {
-            flash('Please check the requirements.', 'error');
-
-            return redirect()->route('installer.requirements.index');
+            return redirect()->route('installer.requirements.index')->with('error', 'Please check the requirements.');
         }
 
         if (! Cache::get('installer.permissions')) {
-            flash('Please check the permissions.', 'error');
-
-            return redirect()->route('installer.permissions.index');
+            return redirect()->route('installer.permissions.index')->with('error', 'Please check the permissions.');
         }
 
         return view('installer::license');
@@ -56,9 +50,8 @@ class LicenseController extends Controller
     public function activation()
     {
         if (! Storage::disk('local')->exists('installed') || ! config('app.app_installed')) {
-            flash('Please install the application.', 'error');
 
-            return redirect()->route('installer.agreement.index');
+            return redirect()->route('installer.agreement.index')->with('error', 'Please install the application.');
         }
 
         return view('installer::activation');

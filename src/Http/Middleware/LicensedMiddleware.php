@@ -15,9 +15,7 @@ class LicensedMiddleware
             $verifyLicense = License::verify();
 
             if (! $verifyLicense['status']) {
-                flash($verifyLicense['message'], 'error');
-
-                return redirect()->route('installer.license.activation');
+                return redirect()->route('installer.license.activation')->with('error', $verifyLicense['message']);
             }
         }
         if (!config('app.app_installed')) {

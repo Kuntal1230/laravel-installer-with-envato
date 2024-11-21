@@ -53,9 +53,8 @@ class InstallController extends Controller
         // Check if License is verified
         $verifyLicense = License::verify();
         if (! $verifyLicense['status']) {
-            flash($verifyLicense['message'], 'error');
 
-            return redirect()->route('installer.license.index');
+            return redirect()->route('installer.license.index')->with('error', $verifyLicense['message']);
         }
 
         try {

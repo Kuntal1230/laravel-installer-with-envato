@@ -1,5 +1,5 @@
 @extends('installer::layouts.app', [
-    'title' => 'License Activation'
+    'title' => 'License Activation',
 ])
 
 @section('content')
@@ -8,12 +8,14 @@
         <div class="row g-4">
             <div class="col-12 col-md-6">
                 <label for="envato_username">Envato Username *</label>
-                <input type="text" class="form-control" name="envato_username" id="envato_username" placeholder="Envato Username">
+                <input type="text" class="form-control" name="envato_username" id="envato_username"
+                    placeholder="Envato Username">
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="purchase_code">Purchased Code *</label>
-                <input type="text" class="form-control" name="purchase_code" id="purchase_code" placeholder="Purchased Code">
+                <input type="text" class="form-control" name="purchase_code" id="purchase_code"
+                    placeholder="Purchased Code">
             </div>
 
             <div class="button-group">
@@ -29,3 +31,16 @@
         </div>
     </form>
 @endsection
+
+@push('pageScripts')
+    <script>
+        window.error = @json(session('error'));
+        window.success = @json(session('success'));
+        if (window.error) {
+            flash('warning', window.error);
+        }
+        if (window.success) {
+            flash('success', window.success);
+        }
+    </script>
+@endpush

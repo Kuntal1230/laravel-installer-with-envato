@@ -63,7 +63,7 @@ class License
 
     private function saveLicense(array $data): void
     {
-        // Read the contents of agreement.md
+        // Read the contents of AGREEMENT.md
         $agreementPath = base_path('vendor/gupta/laravel-installer-with-envato/AGREEMENT.md');
         $agreementContent = file_get_contents($agreementPath);
 

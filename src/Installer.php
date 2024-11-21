@@ -2,13 +2,13 @@
 
 namespace Gupta\LaravelInstallerWithEnvato;
 
-use Brotzka\DotenvEditor\DotenvEditor;
 use Exception;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use ZipArchive;
 
 class Installer
@@ -142,7 +142,7 @@ class Installer
                 }
             }
 
-            flash($e->getMessage(), 'error');
+            session()->flash('error', $e->getMessage());
 
             return null;
         }
@@ -182,8 +182,7 @@ class Installer
                     unlink($sqlFilePath);
                 }
             }
-
-            flash($e->getMessage(), 'error');
+            session()->flash('error', $e->getMessage());
 
             return null;
         }
@@ -208,7 +207,7 @@ class Installer
                 }
             }
         } catch (Exception $e) {
-            flash(trans('Failed to upgrade the application'), 'error');
+            session()->flash('error', 'Failed to upgrade the application');
         }
     }
 
@@ -224,7 +223,7 @@ class Installer
 
             unlink($sql_file);
         } catch (Exception $e) {
-            flash(trans('Failed to upgrade the application'), 'error');
+            session()->flash('error', 'Failed to upgrade the application');
         }
     }
 
@@ -238,11 +237,11 @@ class Installer
 
             @chmod(base_path('.env'), 0777);
 
-            $dotenvEditor->addData(['APP_VERSION' => $version]);
+            $dotenvEditor->setKeys(['APP_VERSION' => $version]);
 
             @chmod(base_path('.env'), 0644);
         } catch (Exception $e) {
-            flash(trans('Failed to upgrade the application'), 'error');
+            session()->flash('error', trans('Failed to upgrade the application'));
         }
     }
 

@@ -3,20 +3,20 @@
 ])
 
 @section('content')
-    @if($showAgreement)
+    @if ($showAgreement)
         <div class="scrollable">
             <x-markdown>
                 {!! $agreement !!}
             </x-markdown>
         </div>
-
         <form action="{{ route('installer.agreement.index') }}" method="post">
             @csrf
             <div class="button-group">
                 <div class="row g-4 justify-content-end">
                     <div class="col-12 col-md-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1" id="agreeCheckbox" name="agree" required>
+                            <input class="form-check-input" type="checkbox" value="1" id="agreeCheckbox" name="agree"
+                                required>
                             <label class="form-check-label text-primary" for="agreeCheckbox">
                                 I have read all the rules and agree with these.
                             </label>
@@ -53,3 +53,16 @@
         </form>
     @endif
 @endsection
+
+@push('pageScripts')
+    <script>
+        window.error = @json(session('error'));
+        window.success = @json(session('success'));
+        if (window.error) {
+            flash('warning', window.error);
+        }
+        if (window.success) {
+            flash('success', window.success);
+        }
+    </script>
+@endpush

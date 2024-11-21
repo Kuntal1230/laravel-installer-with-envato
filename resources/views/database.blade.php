@@ -1,5 +1,5 @@
 @extends('installer::layouts.app', [
-    'title' => 'Database'
+    'title' => 'Database',
 ])
 
 @section('content')
@@ -9,13 +9,13 @@
             <div class="col-12 col-md-6">
                 <label for="driver">Database Driver</label>
                 <select class="formSelect" name="driver" id="driver" aria-label="Default select example" required>
-                    @if(config('installer.database.mysql'))
+                    @if (config('installer.database.mysql'))
                         <option value="mysql" @selected(config('installer.database.default') == 'mysql')>MySQL</option>
                     @endif
-                    @if(config('installer.database.pgsql'))
+                    @if (config('installer.database.pgsql'))
                         <option value="pgsql" @selected(config('installer.database.default') == 'pgsql')>PgSQL</option>
                     @endif
-                    @if(config('installer.database.sqlsrv'))
+                    @if (config('installer.database.sqlsrv'))
                         <option value="sqlsrv" @selected(config('installer.database.default') == 'sqlsrv')>SQLSrv</option>
                     @endif
                 </select>
@@ -24,31 +24,31 @@
             <div class="col-12 col-md-6">
                 <label for="host">Database Host</label>
                 <input type="text" class="form-control" name="host" id="host" value="localhost"
-                       placeholder="Database Host" required>
+                    placeholder="Database Host" required>
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="port">Database Port</label>
-                <input type="number" class="form-control" name="port" id="port" value="3306" placeholder="Database Port"
-                       required>
+                <input type="number" class="form-control" name="port" id="port" value="3306"
+                    placeholder="Database Port" required>
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="database">Database Name</label>
                 <input type="text" class="form-control" name="database" id="database" placeholder="Database Name"
-                       required>
+                    required>
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="username">Database User Username</label>
                 <input type="text" class="form-control" name="username" id="username"
-                       placeholder="Database User Username" required>
+                    placeholder="Database User Username" required>
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="password">Database User Password</label>
                 <input type="text" class="form-control" name="password" id="password"
-                       placeholder="Database User Password">
+                    placeholder="Database User Password">
             </div>
 
             <div class="button-group">
@@ -67,7 +67,7 @@
 
 @push('pageScripts')
     <script>
-        $('#driver').on('change', function () {
+        $('#driver').on('change', function() {
             if ($(this).val() === 'mysql') {
                 $('#port').val('3306')
             } else if ($(this).val() === 'pgsql') {
@@ -78,10 +78,10 @@
         })
 
 
-        $('#databaseForm').on('ajaxFormError', function (e, response) {
+        $('#databaseForm').on('ajaxFormError', function(e, response) {
             response = response.responseJSON
 
-            if(response?.data?.ask_for_force){
+            if (response?.data?.ask_for_force) {
                 $.confirm({
                     title: 'Are you sure!',
                     content: 'Your database is not empty, do you want to force the installation?',
@@ -91,7 +91,7 @@
                     buttons: {
                         yes: {
                             btnClass: 'btn-warning',
-                            action: function () {
+                            action: function() {
                                 $.confirm({
                                     title: 'This action is irreversible!',
                                     content: 'I understand the consequences, proceed anyway?',
@@ -101,22 +101,30 @@
                                     buttons: {
                                         proceed: {
                                             btnClass: 'btn-danger',
-                                            action: function () {
-                                                $('#databaseForm').find('input[name="force"]').val(1)
+                                            action: function() {
+                                                $('#databaseForm').find(
+                                                    'input[name="force"]').val(1)
                                                 $('#databaseForm').submit()
                                             }
                                         },
-                                        cancel: function () {
-                                        }
+                                        cancel: function() {}
                                     }
                                 })
                             }
                         },
-                        no: function () {
-                        }
+                        no: function() {}
                     }
                 });
             }
         })
+
+        window.error = @json(session('error'));
+        window.success = @json(session('success'));
+        if (window.error) {
+            flash('warning', window.error);
+        }
+        if (window.success) {
+            flash('success', window.success);
+        }
     </script>
 @endpush

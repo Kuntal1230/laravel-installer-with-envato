@@ -17,8 +17,7 @@ class RequirementController extends Controller
     public function index()
     {
         if (! Cache::get('installer.agreement')) {
-            flash('Please agree to the terms and conditions before proceeding.', 'error');
-            return redirect()->route('installer.agreement.index');
+            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions before proceeding.');
         }
 
         $phpSupportInfo = $this->checkPHPVersion();
@@ -37,8 +36,7 @@ class RequirementController extends Controller
     public function store()
     {
         if (! Cache::get('installer.agreement')) {
-            flash('Please agree to the terms and conditions before proceeding.', 'error');
-            return redirect()->route('installer.agreement.index');
+            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions before proceeding.');
         }
 
         $phpSupportInfo = $this->checkPHPVersion();
@@ -48,9 +46,7 @@ class RequirementController extends Controller
         $hasError = ! $phpSupportInfo['supported'] || ($requirements['errors'] ?? false);
 
         if ($hasError) {
-            flash('Please fix the errors before proceeding.', 'error');
-
-            return redirect()->route('installer.requirements.index');
+            return redirect()->route('installer.requirements.index')->with('error', 'Please fix the errors before proceeding.');
         }
 
         Cache::put('installer.requirements', true);

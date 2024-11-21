@@ -1,5 +1,5 @@
 @extends('installer::layouts.app', [
-    'title' => 'Admin Setup'
+    'title' => 'Admin Setup',
 ])
 
 @section('content')
@@ -13,17 +13,20 @@
 
             <div class="col-12 col-md-6">
                 <label for="email">Email Address</label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email Address"
+                    required>
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password" minlength="8" required>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password"
+                    minlength="8" required>
             </div>
 
             <div class="col-12 col-md-6">
                 <label for="password_confirmation">Confirm Password</label>
-                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" minlength="8" required>
+                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"
+                    placeholder="Confirm Password" minlength="8" required>
             </div>
 
             <div class="button-group">
@@ -39,3 +42,16 @@
         </div>
     </form>
 @endsection
+
+@push('pageScripts')
+    <script>
+        window.error = @json(session('error'));
+        window.success = @json(session('success'));
+        if (window.error) {
+            flash('warning', window.error);
+        }
+        if (window.success) {
+            flash('success', window.success);
+        }
+    </script>
+@endpush

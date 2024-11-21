@@ -24,9 +24,7 @@ class DatabaseController extends Controller
         $license = License::verify();
 
         if (! $license['status']) {
-            flash($license['message'], 'error');
-
-            return redirect()->route('installer.license.index');
+            return redirect()->route('installer.license.index')->with('error', $license['message']);
         }
 
         return view('installer::database');

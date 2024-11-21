@@ -20,9 +20,8 @@ class SMTPController extends Controller
         $verifyLicense = License::verify();
 
         if (! $verifyLicense['status']) {
-            flash($verifyLicense['message'], 'error');
 
-            return redirect()->route('installer.license.index');
+            return redirect()->route('installer.license.index')->with('error', $verifyLicense['message']);
         }
 
         return view('installer::smtp');

@@ -6,7 +6,7 @@ return [
     'company' => [
         'name' => 'PixelsBD Solution',
         'url' => 'https://pixelsbdsolution.com',
-        'support_email' => 'envato@Gupta.com',
+        'support_email' => 'envato@pixelsbdsolution.com',
         'support_phone' => '+880',
     ],
 
