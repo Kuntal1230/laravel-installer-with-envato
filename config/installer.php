@@ -32,9 +32,9 @@ return [
     ],
 
     'admin' => [
-        'show_form' => false,
-        'has_role' => false,
-        'role' => '',
+        'show_form' => true,
+        'has_role' => true,
+        'role' => 'Super Admin',
         'extra' => []
     ],
 

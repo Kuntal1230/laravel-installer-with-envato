@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Jackiedo\DotenvEditor\DotenvEditor;
 use Exception;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseController extends Controller
@@ -72,12 +71,6 @@ class DatabaseController extends Controller
             Artisan::call('migrate:fresh --force');
             Artisan::call('storage:link');
 
-            Cache::put('installer.agreement', true);
-            Cache::put('installer.requirements', true);
-            Cache::put('installer.permissions', true);
-            Cache::put('installer.license', true);
-            Cache::put('installer.database', true);
-
             $this->updateDatabaseCredentials($request, true);
 
             return response()->json([
@@ -86,7 +79,6 @@ class DatabaseController extends Controller
                 'redirect' => route('installer.admin.index'),
             ]);
         } catch (Exception $e) {
-            Cache::forget('installer.database');
 
             return response()->json([
                 'status' => 'error',

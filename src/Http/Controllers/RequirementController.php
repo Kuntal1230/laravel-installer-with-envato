@@ -3,7 +3,6 @@
 namespace Gupta\LaravelInstallerWithEnvato\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 
 class RequirementController extends Controller
 {
@@ -16,10 +15,6 @@ class RequirementController extends Controller
 
     public function index()
     {
-        if (! Cache::get('installer.agreement')) {
-            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions before proceeding.');
-        }
-
         $phpSupportInfo = $this->checkPHPVersion();
 
         $requirements = $this->checkServerRequirements();
@@ -35,10 +30,6 @@ class RequirementController extends Controller
 
     public function store()
     {
-        if (! Cache::get('installer.agreement')) {
-            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions before proceeding.');
-        }
-
         $phpSupportInfo = $this->checkPHPVersion();
 
         $requirements = $this->checkServerRequirements();
@@ -48,8 +39,6 @@ class RequirementController extends Controller
         if ($hasError) {
             return redirect()->route('installer.requirements.index')->with('error', 'Please fix the errors before proceeding.');
         }
-
-        Cache::put('installer.requirements', true);
 
         return redirect()->route('installer.permissions.index');
     }

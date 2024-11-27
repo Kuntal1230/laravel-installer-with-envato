@@ -5,7 +5,6 @@ namespace Gupta\LaravelInstallerWithEnvato\Http\Controllers;
 use Gupta\LaravelInstallerWithEnvato\Http\Requests\StoreAdminRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -31,8 +30,6 @@ class AdminController extends Controller
 
             $superAdmin->assignRole(config('installer.admin.role'));
         }
-
-        Cache::put('installer.admin', true);
 
         return response()->json([
             'status' => 'success',

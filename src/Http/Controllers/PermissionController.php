@@ -3,7 +3,6 @@
 namespace Gupta\LaravelInstallerWithEnvato\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 
 class PermissionController extends Controller
 {
@@ -23,14 +22,6 @@ class PermissionController extends Controller
 
     public function index()
     {
-        if (! Cache::get('installer.agreement')) {
-            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions.');
-        }
-
-        if (! Cache::get('installer.requirements')) {
-            return redirect()->route('installer.requirements.index')->with('error', 'Please check the requirements.');
-        }
-
         $permissions = $this->check(
             config('installer.permissions')
         );
@@ -50,16 +41,6 @@ class PermissionController extends Controller
 
     public function store()
     {
-        if (! Cache::get('installer.agreement')) {
-
-            return redirect()->route('installer.agreement.index')->with('error', 'Please agree to the terms and conditions.');
-        }
-
-        if (! Cache::get('installer.requirements')) {
-
-            return redirect()->route('installer.requirements.index')->with('error', 'Please check the requirements.');
-        }
-
         $permissions = $this->check(
             config('installer.permissions')
         );
@@ -73,8 +54,6 @@ class PermissionController extends Controller
 
             return redirect()->route('installer.permissions')->with('error', 'Please check the permissions.');
         }
-
-        Cache::put('installer.permissions', true);
 
         return redirect()->route('installer.license.index');
     }
